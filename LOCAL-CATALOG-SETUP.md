@@ -3,14 +3,12 @@
 The local catalog backend uses Python 3's standard library and SQLite; it needs no package installation or internet connection.
 
 1. Double-click `start-local.bat`. It starts the local server in a minimized window, waits for it to respond, and opens the admin page; if the server is already running, it simply opens the page. Keep the minimized server window open while using the site.
-2. Open `http://127.0.0.1:8765` and select **Admin Login** in the header, or go directly to `http://127.0.0.1:8765/admin`.
-3. Sign in using the single admin password `Itechfix`; no username is needed. On first startup after this update, the local database switches to this password and stores it as a salted hash.
+2. Open `http://127.0.0.1:8765` and select the small **Admin** link at the bottom of the storefront, or go directly to `http://127.0.0.1:8765/admin`.
+3. The local admin dashboard signs in automatically when opened; no login page or password is needed. This is limited to the local server running on this computer.
 4. Add or edit a listing, select its storefront section, and optionally upload an image. Use JPEG, PNG, WEBP, or GIF images up to 8 MB.
 5. Open `http://127.0.0.1:8765` to view the storefront. Visible catalog changes appear in the selected section.
 
-The admin page uses one password-only sign-in. Buyers cannot read or change admin listings without an authenticated session.
-
-The admin password cannot be reset from this local admin page. Do not expose this backend to the public internet.
+The hosted dashboard still requires its password. Do not expose the local backend to the public internet.
 
 The first startup imports the current phone, laptop, gadget, repair, and spare-part listings into the editable catalog. Data is stored in `catalog.sqlite3`; uploaded images are stored in `uploads`. Keep both safe when backing up the site.
 
@@ -31,7 +29,7 @@ The public storefront is a static Vercel deployment. The local Python server doe
      $rng.GetBytes($bytes)
      [Convert]::ToBase64String($bytes)
      ```
-   - `ITECH_ADMIN_PASSWORD` — the one password for the hosted admin sign-in. Set it to `Itechfix` to match the local admin. This password is weak and makes the public admin easier to compromise; use a unique, stronger password for any public deployment.
+   - `ITECH_ADMIN_PASSWORD` — a unique, strong password for the hosted admin sign-in. Keep this different from any password used elsewhere.
 3. Redeploy the Vercel project after saving its environment variables. The Vercel `api` function uses these secrets server-side and issues signed, HttpOnly sessions.
 4. To copy the current local listings into Supabase, set `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` temporarily in PowerShell from the project folder, then run:
    ```powershell
