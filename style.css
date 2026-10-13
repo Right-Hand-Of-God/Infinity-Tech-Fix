@@ -1081,6 +1081,18 @@ a {
   gap: 10px;
 }
 
+.footer-admin-link {
+  color: #64748B;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.footer-admin-link:hover,
+.footer-admin-link:focus-visible {
+  color: #94A3B8;
+  text-decoration: underline;
+}
+
 /* ---------------- Modals ---------------- */
 .modal {
   display: none;
