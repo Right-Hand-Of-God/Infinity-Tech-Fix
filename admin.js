@@ -46,6 +46,7 @@ function showAuth() {
 }
 
 async function initialize() {
+  document.getElementById('loading-panel').hidden = true;
   try {
     const status = await api('/api/status');
     if (!status.setup_required && status.authenticated) {
@@ -287,3 +288,5 @@ async function deleteListing(item) {
     window.alert(error.message);
   }
 }
+
+initialize();
