@@ -50,6 +50,9 @@ async function initialize() {
     const status = await api('/api/status');
     if (!status.setup_required && status.authenticated) {
       showDashboard(status.role);
+    } else if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+      const session = await api('/api/local-session', { method: 'POST' });
+      await showDashboard(session.role);
     } else {
       showAuth();
     }
@@ -309,6 +312,3 @@ async function deleteListing(item) {
   } catch (error) {
     window.alert(error.message);
   }
-}
-
-initialize();
