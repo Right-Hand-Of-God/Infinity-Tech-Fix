@@ -31,7 +31,7 @@
     .danger { background: #fff0f0; color: #a12727; }
     .toolbar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
     .toolbar h2 { margin: 0 auto 0 0; }
-    #auth-panel { max-width: 500px; margin: 58px auto; padding: 30px; }
+    #auth-panel, #loading-panel { max-width: 500px; margin: 58px auto; padding: 30px; }
     #auth-title { margin-bottom: 8px; }
     #auth-description { margin: 0 0 18px; }
     #auth-submit { min-width: 130px; }
@@ -74,6 +74,10 @@
     <a class="button-link secondary" href="index.html">View storefront</a>
   </header>
   <main>
+    <section id="loading-panel" class="panel">
+      <h2>Loading the admin dashboard…</h2>
+      <p class="hint">If this message does not go away, refresh the page. If it still stays, the admin script could not load — contact the site administrator.</p>
+    </section>
     <section id="auth-panel" class="panel" hidden>
       <h2 id="auth-title">Admin sign in</h2>
       <p id="auth-description" class="hint"></p>
@@ -103,7 +107,7 @@
           <h2 id="editor-title">Add a listing</h2>
           <button id="cancel-edit" class="secondary" type="button" hidden>Cancel edit</button>
         </div>
-        <p class="hint">Add or update a product or service. Its category controls which storefront section displays it, and the matching page destination is automatically selected for you. Prices are optional. Images can be JPEG, PNG, WEBP, or GIF up to 8 MB.</p>
+        <p class="hint">Add or update a product or service. Its category controls which storefront section displays it, and the matching page destination is automatically selected for you. Prices are optional. Images can be JPEG, PNG, WEBP, or GIF up to 4 MB.</p>
         <form id="item-form">
           <div class="fields">
             <label>Section
@@ -152,6 +156,6 @@
       </section>
     </section>
   </main>
-  <script src="admin.js?v=5"></script>
+  <script src="admin.js?v=7"></script>
 </body>
 </html>
