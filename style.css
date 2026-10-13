@@ -1082,15 +1082,20 @@ a {
 }
 
 .footer-admin-link {
-  color: #64748B;
-  font-size: 11px;
+  color: #CBD5E1;
+  font-size: 12px;
+  font-weight: 600;
   text-decoration: none;
+  padding: 5px 9px;
+  border: 1px solid #64748B;
+  border-radius: 6px;
 }
 
 .footer-admin-link:hover,
 .footer-admin-link:focus-visible {
-  color: #94A3B8;
-  text-decoration: underline;
+  color: #FFFFFF;
+  border-color: #94A3B8;
+  background: #FFFFFF12;
 }
 
 /* ---------------- Modals ---------------- */
