@@ -48,3 +48,10 @@ The public storefront is a static Vercel deployment. The local Python server doe
 5. Open `https://itechfixit.vercel.app/admin.html` and sign in. The local `catalog.sqlite3` and the Supabase catalog are separate; edits on the hosted site are stored in Supabase.
 
 The Vercel deployment excludes the local SQLite database, local uploads, Python server, and setup-only scripts using [`.vercelignore`](./.vercelignore).
+
+## Hosted Admin Dashboard on Netlify
+
+On Netlify, the admin dashboard is powered by the `netlify/functions/api.mts` function. Listings are stored in Netlify Database (the table and the starting catalog are created automatically on deploy) and uploaded images are stored in Netlify Blobs.
+
+1. In the Netlify project settings, open **Environment variables** and add `ITECH_ADMIN_PASSWORD` with a strong, unique admin password. Optionally add `ITECH_SESSION_SECRET` (a random value of at least 32 characters) to sign admin sessions.
+2. Redeploy the site, then open `/admin` and sign in with that password.

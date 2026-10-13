@@ -55,6 +55,10 @@ async function initialize() {
       await showDashboard(session.role);
     } else {
       showAuth();
+      if (status.setup_required) {
+        document.getElementById('auth-message').textContent =
+          'The admin password has not been set up yet. Add the ITECH_ADMIN_PASSWORD environment variable in Netlify, then redeploy.';
+      }
     }
   } catch (error) {
     authPanel.hidden = false;
@@ -65,7 +69,7 @@ async function initialize() {
     document.getElementById('auth-description').textContent =
       isLocal
         ? 'Double-click start-local.bat to start or reopen the local server, then choose Try again.'
-        : 'The hosted admin API needs to be deployed and connected to its database. Choose Try again after setup.';
+        : 'The hosted admin service could not be reached. Choose Try again in a moment.';
     document.getElementById('auth-message').textContent = error.message;
     document.getElementById('server-retry').hidden = false;
   }
@@ -216,40 +220,10 @@ authForm.addEventListener('submit', async event => {
 
 document.getElementById('server-retry').addEventListener('click', initialize);
 async function uploadImage(file) {
-  const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
-  if (isLocal) {
-    const upload = new FormData();
-    upload.append('image', file);
-    const result = await api('/api/upload', { method: 'POST', body: upload });
-    return result.image;
-  }
-
-  const uploadInfo = await api('/api/upload', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      fileName: file.name,
-      contentType: file.type,
-      fileSize: file.size
-    })
-  });
-  const body = new FormData();
-  body.append('cacheControl', '3600');
-  body.append('', file);
-  let response;
-  try {
-    response = await fetch(uploadInfo.signedUrl, {
-      method: 'PUT',
-      headers: { 'x-upsert': 'false' },
-      body
-    });
-  } catch {
-    throw new Error('The image storage service could not be reached.');
-  }
-  if (!response.ok) {
-    throw new Error(`Image upload failed (${response.status}). Check the Supabase storage setup and try again.`);
-  }
-  return uploadInfo.image;
+  const upload = new FormData();
+  upload.append('image', file);
+  const result = await api('/api/upload', { method: 'POST', body: upload });
+  return result.image;
 }
 
 itemForm.addEventListener('submit', async event => {
@@ -312,3 +286,4 @@ async function deleteListing(item) {
   } catch (error) {
     window.alert(error.message);
   }
+}
