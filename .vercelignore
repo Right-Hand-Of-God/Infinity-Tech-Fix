@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+catalog.sqlite3
+catalog.sqlite3-*
+uploads/
+server.py
+start-local.bat
+scripts/
+tests/
+supabase/
